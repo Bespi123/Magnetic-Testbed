@@ -77,6 +77,7 @@ function [B,B1,B2] = magneticFielsSquareCoil(P, N, I, spire1, spire2)
             dB2 = (N*mu_0 * I / (4 * pi)) * cross(dl_2(:,j), R2) / norm(R2)^3;
             B1 = B1 + dB1;
             B2 = B2 + dB2;
+
         end     
     end
     B = B1+B2;
@@ -125,6 +126,11 @@ function coil = coilSimulation1d(cubeRange, A1, IS501NMTB, I)
     coil.xy.norB = coil.xy.Bx; coil.xy.norB = coil.xy.Bx;
     coil.xy.norB = coil.xy.Bx;
     
+     %% Create wait bar
+    hWaitbar = waitbar(0, 'Progress: 0%','Name', 'IS501 NMTB Simulation progress..');
+    numIter = length(X)^2;
+    currentIter = 0;
+
     %% Simulation for the coil using BiotSavart coil
     %%%Define spired geometry
     [coil.spire1,coil.spire2] = squareSpires(A1, IS501NMTB.h, IS501NMTB.L, 1E3);
@@ -142,6 +148,18 @@ function coil = coilSimulation1d(cubeRange, A1, IS501NMTB, I)
             [B3,~,~] = magneticFielsSquareCoil([X(i,j),0,Y(i,j)]', IS501NMTB.N, I, coil.spire1,coil.spire2);
             coil.xz.Bx(i,j) = B3(1); coil.xz.By(i,j) = B3(2); coil.xz.Bz(i,j) = B3(3); 
             coil.xz.norB(i,j) = norm(B3);
+
+            %% Progress bar configuration
+            %%%% Calculate the progress percentage
+            currentIter = currentIter+1;
+            progress = currentIter / numIter;
+            if isa(hWaitbar,'handle') && isvalid(hWaitbar)
+                % Update the progress bar
+                waitbar(progress, hWaitbar, sprintf('Progress: %.1f%%', progress*100));
+            end
         end
     end
+    %%%Close waitbar
+    % Close the progress bar when the simulation is complete
+    close(hWaitbar);
 end
