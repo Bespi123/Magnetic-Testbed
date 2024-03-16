@@ -37,7 +37,7 @@ if ~any(Rangey == 0)
     Rangey = [Rangey, 0];
     Rangey = sort(Rangey);
 end
-%%% Matrix rotation from X to Z axis
+%%% Matrix rotation from X to Y axis
 Ay = [0   -1   0; 1    0   0; 0    0   1];
 ycoil = coilSimulation1d(Rangey, Ay, IS501NMTB.Y, Iy);
 
@@ -104,17 +104,17 @@ function [spire1,spire2] = squareSpires(A, h, L, numSeg)
     spire2.side3 = A*spire2.side3; spire2.side4 = A*spire2.side4;
 end
 
-function coil = coilSimulation1d(cubeRange, A1, IS501NMTB, I)
+function coil = coilSimulation1d(range, A1, IS501NMTB, I)
     %%% Generate planes X-Y, X-Z, Y-Z
     %%%Plane X-Y
-    [X, Y] = meshgrid(cubeRange, cubeRange);
+    [X, Y] = meshgrid(range, range);
     %%% Align axes
     coil.xy.X=X;    coil.xy.Y=Y;
     coil.yz.Y=X;    coil.yz.Z=Y;
     coil.xz.X=X;    coil.xz.Z=Y;
     
     %%% Containers for the calculated magnetic field
-    coil.xy.Bx = NaN(length(cubeRange),length(cubeRange));
+    coil.xy.Bx = NaN(length(range),length(range));
     coil.xy.By = coil.xy.Bx; coil.xy.Bz = coil.xy.Bx; 
     
     coil.yz.Bx = coil.xy.Bx; coil.yz.By = coil.xy.Bx; 
