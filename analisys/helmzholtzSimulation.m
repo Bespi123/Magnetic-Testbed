@@ -3,17 +3,17 @@
 IS501NMTB.Z.L = 1.03;
 IS501NMTB.Z.a = IS501NMTB.Z.L/2 ;
 IS501NMTB.Z.h = 0.5 ;
-IS501NMTB.Z.N = 19; 
+IS501NMTB.Z.N = 20; 
 %%%Parameters for the Y coil
 IS501NMTB.Y.L = 1.02;
 IS501NMTB.Y.a = IS501NMTB.Y.L/2 ;
 IS501NMTB.Y.h = 0.5 ;
-IS501NMTB.Y.N = 30; 
+IS501NMTB.Y.N = 35; 
 %%%Parameters for the X coil
 IS501NMTB.X.L = 1.03;
 IS501NMTB.X.a = IS501NMTB.X.L/2 ;
 IS501NMTB.X.h = 0.5;
-IS501NMTB.X.N = 32;
+IS501NMTB.X.N = 36;
 
 %% Simulation Configurations for Z coil
 %%% Coils current for z coil
