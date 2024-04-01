@@ -1,4 +1,5 @@
 function J=myObjectiveFunction(k)
+errmsg= Error in '<a href="matlab:open_and_hilite_hyperlink ('xCoilPID/Controller/PID controller/Interpreted MATLAB Function1','error')">xCoilPID/Controller/PID controller/Interpreted MATLAB Function1</a>'. Evaluation of expression resulted in an invalid output. Only finite double vector or matrix outputs are supported'
 % Template for Creating an Objective Function Using a Simulink Block Diagram
 % x contains all the controller variables of the problem in a column vector.
 % Acknoledgment: 
@@ -17,9 +18,9 @@ x.alpha   = k(3);
 x.beta    = k(4);
 x.epsilon = k(5);
 %%%Initial Conditions
-x.kp_init = k(6);
-x.kd_init = k(7);
-x.ki_init = k(8);
+x.kd_init = k(6);
+x.ki_init = k(7);
+x.kp_init = k(8);
 
 %%%%%%%%%%%%%%%%%%%     SECTION 2: Conditions         %%%%%%%%%%%%%%%%%%%%%
 % Operating conditions of the problem. If the problem has parameters or 
@@ -44,12 +45,12 @@ try
    stable = 1;
 catch exception
    
-   if strcmp(exception.identifier,'Simulink:Engine:DerivNotFinite')
+   if strcmp(exception.identifier,'Simulink:Engine:DerivNotFinite') ||
+
     stable = 0;
     disp('System No stable')
    else
        disp('Otro error')
-       stable = 0;
    end
 end
 
@@ -70,7 +71,7 @@ u=yout(:,1); y=yout(:,2); e=yout(:,3);%Define error, control signal and output
 
 %-----Indice preestablecido------------
 %digamos que se desea que el tiempo de establecimiento sea un valor
-%específico
+%especÃ­fico
 %desired_setlement_time = 376;
 %desired_rising_time    = 80;
 desired_setlement_time = 0;
@@ -84,7 +85,7 @@ d_tr = abs(desired_rising_time-tr);
 ts = calculateSettlementTime(e, t, 5/100);
 d_ts = abs(desired_setlement_time-ts);
 
-%-----índices de error integral --------
+%-----Ã­ndices de error integral --------
 %itse=trapz(t,t.*e.^2);
 itse = trapz(t,e.^2);
 
@@ -97,8 +98,8 @@ entropy = calculate_entropy(y);
 
 uwork = trapz(t,u.^2);
 
-%%%-----Elección del índice deseado como fitness-------
-%%% Se determina la salida del la función fitness
+%%%-----ElecciÃ³n del Ã­ndice deseado como fitness-------
+%%% Se determina la salida del la funciÃ³n fitness
 %%%J=itse+overshoot+umax+uwork+timeWorking;
 %%%J=itse+setlement_time_error+overshoot+rising_time_error;
 %%%J=itse+setlement_time_error+rising_time_error;

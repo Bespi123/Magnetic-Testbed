@@ -10,25 +10,55 @@ function J=myObjectiveFunction(k)
 % Separate the variables into their appropriate names, according to the
 % problem at hand. These variables correspond to the elements of x, which
 % must be n different elements.
-%%%Adaptation Law gains
-x.lambda  = k(1);
-x.n       = k(2);
-x.alpha   = k(3);
-x.beta    = k(4);
-x.epsilon = k(5);
-%%%Initial Conditions
-x.kp_init = k(6);
-x.kd_init = k(7);
-x.ki_init = k(8);
+x.alpha1 = k(1);
+x.beta1  = k(2);
+x.beta2  = k(3);
+x.k      = k(4);
 
 %%%%%%%%%%%%%%%%%%%     SECTION 2: Conditions         %%%%%%%%%%%%%%%%%%%%%
 % Operating conditions of the problem. If the problem has parameters or 
 % data that you need to add, place them in this section.
-%xcoilParameters; %call plant variables
+%%%x-coil
+x.Kp  = 3639.2 ;                 
+x.Tp1 = 108.65 ;                
+x.Tp2 = 0.52435;               
+x.Tz  = 24.199 ; %call plant variables
+
 x.Kp  = 3639.2 ;                 
 x.Tp1 = 108.65 ;                
 x.Tp2 = 0.52435;               
 x.Tz  = 24.199 ;
+
+%%Reference tf
+% km  = 1.6211e-04;
+% bm  = 1;
+% am1 = 0.0232;
+% am2 = 1.6211e-04;
+ref.km  = 0.21261;
+ref.bm  = 1;
+ref.am1 = 0.8;
+ref.am2 = 0.2126;
+
+%%Parameters
+Ts = 1; %s
+
+%%Controller gains
+x.alpha1 = bp-ref.bm;
+x.beta1 = (ref.am1-ap1)/x.Kp;
+x.beta2 = (ref.am2-ap2)/x.Kp;
+x.k = ref.km/x.Kp;
+%%adaptation Laws
+x.gamma = 1E-10;
+%%%y-coil
+y.Kp  = 6900.7;                 
+y.Tp1 = 4.5513;                 
+y.Tp2 = 4.3827;                 
+y.Tz  = 2.7486;
+%%%z-coil
+z.Kp  = 3137.9 ;                
+z.Tp1 = 46.134 ;                
+z.Tp2 = 0.35501;                
+z.Tz  = 166.08 ;
 
 %%%%%%%%%%%%%%%%%%%     SECTION 3: Pre-Calculations   %%%%%%%%%%%%%%%%%%%%%
 % Pre-calculations
@@ -40,7 +70,9 @@ x.Tz  = 24.199 ;
 % simulation outputs
 % WARNING!!! The model name must be changed in the following line
 try
-   salidas=sim('xCoilPID','SrcWorkspace','current');
+   %salidas=sim('xcoilSintonization','SrcWorkspace','current');
+   %salidas=sim('ycoilSintonization','SrcWorkspace','current');
+   salidas=sim('zcoilSintonization','SrcWorkspace','current');
    stable = 1;
 catch exception
    
@@ -49,7 +81,6 @@ catch exception
     disp('System No stable')
    else
        disp('Otro error')
-       stable = 0;
    end
 end
 
@@ -70,7 +101,7 @@ u=yout(:,1); y=yout(:,2); e=yout(:,3);%Define error, control signal and output
 
 %-----Indice preestablecido------------
 %digamos que se desea que el tiempo de establecimiento sea un valor
-%específico
+%especÃ­fico
 %desired_setlement_time = 376;
 %desired_rising_time    = 80;
 desired_setlement_time = 0;
@@ -84,7 +115,7 @@ d_tr = abs(desired_rising_time-tr);
 ts = calculateSettlementTime(e, t, 5/100);
 d_ts = abs(desired_setlement_time-ts);
 
-%-----índices de error integral --------
+%-----Ã­ndices de error integral --------
 %itse=trapz(t,t.*e.^2);
 itse = trapz(t,e.^2);
 
@@ -97,8 +128,8 @@ entropy = calculate_entropy(y);
 
 uwork = trapz(t,u.^2);
 
-%%%-----Elección del índice deseado como fitness-------
-%%% Se determina la salida del la función fitness
+%%%-----ElecciÃ³n del Ã­ndice deseado como fitness-------
+%%% Se determina la salida del la funciÃ³n fitness
 %%%J=itse+overshoot+umax+uwork+timeWorking;
 %%%J=itse+setlement_time_error+overshoot+rising_time_error;
 %%%J=itse+setlement_time_error+rising_time_error;

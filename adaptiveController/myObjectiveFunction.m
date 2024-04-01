@@ -10,25 +10,43 @@ function J=myObjectiveFunction(k)
 % Separate the variables into their appropriate names, according to the
 % problem at hand. These variables correspond to the elements of x, which
 % must be n different elements.
-%%%Adaptation Law gains
-x.lambda  = k(1);
-x.n       = k(2);
-x.alpha   = k(3);
-x.beta    = k(4);
-x.epsilon = k(5);
-%%%Initial Conditions
-x.kp_init = k(6);
-x.kd_init = k(7);
-x.ki_init = k(8);
+x.gamma = k;
+%x.beta1  = k(2);
+%x.beta2  = k(3);
+%x.k      = k(4);
 
 %%%%%%%%%%%%%%%%%%%     SECTION 2: Conditions         %%%%%%%%%%%%%%%%%%%%%
 % Operating conditions of the problem. If the problem has parameters or 
 % data that you need to add, place them in this section.
-%xcoilParameters; %call plant variables
+
+%%Reference tf
+ref.km  = 0.21261;
+ref.bm  = 1;
+ref.am1 = 0.8;
+ref.am2 = 0.2126;
+
+%%Parameters
+Ts = 1; %s
+
+%%adaptation Laws
+%x.gamma = 1E-10;
+
+%%%x-coil
 x.Kp  = 3639.2 ;                 
 x.Tp1 = 108.65 ;                
 x.Tp2 = 0.52435;               
 x.Tz  = 24.199 ;
+
+%%%y-coil
+y.Kp  = 6900.7;                 
+y.Tp1 = 4.5513;                 
+y.Tp2 = 4.3827;                 
+y.Tz  = 2.7486;
+%%%z-coil
+z.Kp  = 3137.9 ;                
+z.Tp1 = 46.134 ;                
+z.Tp2 = 0.35501;                
+z.Tz  = 166.08 ;
 
 %%%%%%%%%%%%%%%%%%%     SECTION 3: Pre-Calculations   %%%%%%%%%%%%%%%%%%%%%
 % Pre-calculations
@@ -40,7 +58,9 @@ x.Tz  = 24.199 ;
 % simulation outputs
 % WARNING!!! The model name must be changed in the following line
 try
-   salidas=sim('xCoilPID','SrcWorkspace','current');
+   %salidas=sim('xcoilSintonization','SrcWorkspace','current');
+   %salidas=sim('ycoilSintonization','SrcWorkspace','current');
+   salidas=sim('xcoilControlDesign','SrcWorkspace','current');
    stable = 1;
 catch exception
    
