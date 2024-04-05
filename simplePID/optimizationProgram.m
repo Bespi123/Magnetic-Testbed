@@ -1,7 +1,7 @@
-no_var=3;  %number of variables
-lb = [0 0 0]; % lower bound
-up = [0.01 0.01 0.01]; % high bound
-initial = [0 1.715276047702329e-06 0];
+no_var = 6;  %number of variables
+lb = [0 -0.01 -0.01 -0.01 -0.01 -0.01]; % lower bound
+up = [1E-3 0.01 0.01 0.01 0.01 0.01]; % high bound
+initial = [1E-5 0 0 0 0 0];
 %initial = [2.290700520974975e-04, 1.996463879247196e-05, 0];
 
 %GA OPTIONS

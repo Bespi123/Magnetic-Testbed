@@ -10,10 +10,32 @@ function J=myObjectiveFunction(k)
 % Separate the variables into their appropriate names, according to the
 % problem at hand. These variables correspond to the elements of x, which
 % must be n different elements.
-x.gamma = k;
-%x.beta1  = k(2);
-%x.beta2  = k(3);
-%x.k      = k(4);
+% x.init.k      = k(1);
+% x.init.theta1 = k(2);
+% x.init.theta2 = k(3);
+% x.init.theta0 = k(4);
+% x.init.omega1 = k(5);
+% x.init.omega2 = k(6);
+% 
+% x.gamma = 1E-3;
+
+% y.init.k      = k(1);
+% y.init.theta1 = k(2);
+% y.init.theta2 = k(3);
+% y.init.theta0 = k(4);
+% y.init.omega1 = k(5);
+% y.init.omega2 = k(6);
+% 
+% y.gamma = 1E-3;
+
+z.init.k      = k(1);
+z.init.theta1 = k(2);
+z.init.theta2 = k(3);
+z.init.theta0 = k(4);
+z.init.omega1 = k(5);
+z.init.omega2 = k(6);
+
+z.gamma = k(7);
 
 %%%%%%%%%%%%%%%%%%%     SECTION 2: Conditions         %%%%%%%%%%%%%%%%%%%%%
 % Operating conditions of the problem. If the problem has parameters or 
@@ -42,6 +64,7 @@ y.Kp  = 6900.7;
 y.Tp1 = 4.5513;                 
 y.Tp2 = 4.3827;                 
 y.Tz  = 2.7486;
+
 %%%z-coil
 z.Kp  = 3137.9 ;                
 z.Tp1 = 46.134 ;                
@@ -58,9 +81,9 @@ z.Tz  = 166.08 ;
 % simulation outputs
 % WARNING!!! The model name must be changed in the following line
 try
-   %salidas=sim('xcoilSintonization','SrcWorkspace','current');
-   %salidas=sim('ycoilSintonization','SrcWorkspace','current');
-   salidas=sim('xcoilControlDesign','SrcWorkspace','current');
+   %salidas=sim('xcoilControlDesign','SrcWorkspace','current');
+   %salidas=sim('ycoilControlDesign','SrcWorkspace','current');
+   salidas=sim('zcoilControlDesign','SrcWorkspace','current');
    stable = 1;
 catch exception
    
