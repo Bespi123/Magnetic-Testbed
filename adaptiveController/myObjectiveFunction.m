@@ -36,6 +36,7 @@ z.init.omega1 = k(5);
 z.init.omega2 = k(6);
 
 z.gamma = k(7);
+z.h = k(8);
 
 %%%%%%%%%%%%%%%%%%%     SECTION 2: Conditions         %%%%%%%%%%%%%%%%%%%%%
 % Operating conditions of the problem. If the problem has parameters or 

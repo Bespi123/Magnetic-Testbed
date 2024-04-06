@@ -29,8 +29,11 @@ Ts = 1; %s
 
 %%adaptation Laws
 x.gamma = 1E-3;     %1E-3
+x.h = 1;
 y.gamma = 1E-3;     %1E-3
-z.gamma = 100;     %1E-3
+y.h = 1;
+z.gamma = 10;     %1E-3
+z.h = 1;
 
 %%Initial values x-coil
 x.init.k      = 7.219490754370038e-04;  %2.055032348632813e-04;
@@ -41,7 +44,7 @@ x.init.omega1 = 0.009204973281076;      %0.009123169101952;
 x.init.omega2 = 0;                      %9.326541512872863e-04;
 
 %%Initial values y-coil
-y.init.k      =  ref.km/z.Kp;
+y.init.k      =  6.9007e-3;%ref.km/z.Kp;
 y.init.theta1 =  0.009968654332761;
 y.init.theta2 =  0.001591547288395;
 y.init.theta0 = -0.001649363917734;
@@ -49,9 +52,9 @@ y.init.omega1 = -0.004063952623625;
 y.init.omega2 =  0.001216831427107;
 
 %%Initial values z-coil
-z.init.k      =  3.931806938505744e-04;
-z.init.theta1 =  0.025189189100370;
-z.init.theta2 =  0.080733476752090;
-z.init.theta0 =  0.063013945908401;
-z.init.omega1 =  0.090286043325005;
-z.init.omega2 =  0.011157447596763;
+z.init.k      =  6.7753e-05;
+z.init.theta1 =  0.000;
+z.init.theta2 =  0.000;
+z.init.theta0 =  0.000;
+z.init.omega1 =  0.000;
+z.init.omega2 =  0.000;
