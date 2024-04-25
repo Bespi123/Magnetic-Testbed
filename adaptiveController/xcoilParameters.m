@@ -32,8 +32,8 @@ x.gamma = 1E-3;     %1E-3
 x.h = 1;
 y.gamma = 1E-3;     %1E-3
 y.h = 1;
-z.gamma = 10;     %1E-3
-z.h = 1;
+z.gamma = 10.212275872372466;     %1E-3
+z.h = -6.216519126646842;
 
 %%Initial values x-coil
 x.init.k      = 7.219490754370038e-04;  %2.055032348632813e-04;
@@ -52,9 +52,9 @@ y.init.omega1 = -0.004063952623625;
 y.init.omega2 =  0.001216831427107;
 
 %%Initial values z-coil
-z.init.k      =  6.7753e-05;
-z.init.theta1 =  0.000;
+z.init.k      =   0.015692756000000;
+z.init.theta1 =  -6.176194766351632;
 z.init.theta2 =  0.000;
 z.init.theta0 =  0.000;
 z.init.omega1 =  0.000;
-z.init.omega2 =  0.000;
+z.init.omega2 =  1;
