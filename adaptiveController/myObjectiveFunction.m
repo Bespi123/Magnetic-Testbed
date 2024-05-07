@@ -10,14 +10,15 @@ function J=myObjectiveFunction(k)
 % Separate the variables into their appropriate names, according to the
 % problem at hand. These variables correspond to the elements of x, which
 % must be n different elements.
-% x.init.k      = k(1);
-% x.init.theta1 = k(2);
-% x.init.theta2 = k(3);
-% x.init.theta0 = k(4);
-% x.init.omega1 = k(5);
-% x.init.omega2 = k(6);
-% 
-% x.gamma = 1E-3;
+x.init.k      = k(1);
+x.init.theta1 = k(2);
+x.init.theta2 = k(3);
+x.init.theta0 = k(4);
+x.init.omega1 = k(5);
+x.init.omega2 = k(6);
+
+x.gamma = k(7);
+x.h = k(8);
 
 % y.init.k      = k(1);
 % y.init.theta1 = k(2);
@@ -28,25 +29,29 @@ function J=myObjectiveFunction(k)
 % 
 % y.gamma = 1E-3;
 
-z.init.k      = k(1);
-z.init.theta1 = k(2);
-z.init.theta2 = k(3);
-z.init.theta0 = k(4);
-z.init.omega1 = k(5);
-z.init.omega2 = k(6);
-
-z.gamma = k(7);
-z.h = k(8);
+% z.init.k      = k(1);
+% z.init.theta1 = k(2);
+% z.init.theta2 = k(3);
+% z.init.theta0 = k(4);
+% z.init.omega1 = k(5);
+% z.init.omega2 = k(6);
+% 
+% z.gamma = k(7);
+% z.h = k(8);
 
 %%%%%%%%%%%%%%%%%%%     SECTION 2: Conditions         %%%%%%%%%%%%%%%%%%%%%
 % Operating conditions of the problem. If the problem has parameters or 
 % data that you need to add, place them in this section.
 
 %%Reference tf
-ref.km  = 0.21261;
+% ref.km  = 0.21261;
+% ref.bm  = 1;
+% ref.am1 = 0.8;
+% ref.am2 = 0.2126;
+ref.km  = 1.6211e-04;
 ref.bm  = 1;
-ref.am1 = 0.8;
-ref.am2 = 0.2126;
+ref.am1 = 0.0232;
+ref.am2 = 1.6211e-04;
 
 %%Parameters
 Ts = 1; %s
@@ -82,9 +87,9 @@ z.Tz  = 166.08 ;
 % simulation outputs
 % WARNING!!! The model name must be changed in the following line
 try
-   %salidas=sim('xcoilControlDesign','SrcWorkspace','current');
+   salidas=sim('xcoilControlDesign','SrcWorkspace','current');
    %salidas=sim('ycoilControlDesign','SrcWorkspace','current');
-   salidas=sim('zcoilControlDesign','SrcWorkspace','current');
+   %salidas=sim('zcoilControlDesign','SrcWorkspace','current');
    stable = 1;
 catch exception
    

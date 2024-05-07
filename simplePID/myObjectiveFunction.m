@@ -53,6 +53,7 @@ catch exception
     stable = 0;
     disp('System No stable')
    else
+       stable = 0;
        disp('Otro error')
    end
 end

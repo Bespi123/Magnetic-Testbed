@@ -1,6 +1,6 @@
 no_var=8;  %number of variables
-lb = -0.1*ones(1,8); % lower bound
-up =  0.1*ones(1,8); % high bound
+up = [Inf Inf Inf Inf Inf Inf Inf Inf]; % lower bound
+lb = [-Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf]; % high bound
 %initial = [0.00664884785499449	0.00321464749562130	1.16161059495086e-05];
 initial = [0.0375   -0.0115    0.0827    0.0711    0.0063    0.0538    0.0164    0.1000];
 
