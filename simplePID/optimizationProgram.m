@@ -1,5 +1,5 @@
 no_var = 3;  %number of variables
-lb = [-Inf -Inf -Inf]; % lower bound
+lb = [0 0 0]; % lower bound
 up = [Inf Inf Inf]; % high bound
 initial = [0 8.06715490396948e-06 0];
 %initial = [2.290700520974975e-04, 1.996463879247196e-05, 0];
