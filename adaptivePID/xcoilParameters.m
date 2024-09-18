@@ -5,11 +5,11 @@ x.Tp2 = 0.52435;
 x.Tz  = 24.199 ;
 
 %%%Adaptation Law gains
-x.lambda = 1E-3;
-x.n = 1;
-x.alpha = 1;
-x.beta = 1;
-x.epsilon = 1;
+x.lambda = 5;
+x.n = 20;
+x.alpha = 3;
+x.beta = 5;
+x.epsilon = 0.01;
 
 %%%Initial Conditions
 x.kd_init = 3.096305095968147e-05;

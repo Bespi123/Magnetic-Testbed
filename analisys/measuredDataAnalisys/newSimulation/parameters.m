@@ -43,9 +43,12 @@ initial_1.Lz  = IS501NMTB.Z.Lz;       %%0.00208911
 initial_1.Rz  = IS501NMTB.Z.R;        %%14.913
 initial_1.B_z = coeff_teor(IS501NMTB.Z.N,IS501NMTB.Z.a,IS501NMTB.Z.h); %%5.38582e-05
 %%%Mutual inductances
-initial_1.Lxy = 0;%1E-5
-initial_1.Lxz = 0;
-initial_1.Lzy = 0;
+%initial_1.Lxy = 0;%1E-5
+%initial_1.Lxz = 0;
+%initial_1.Lzy = 0;
+initial_1.Lxy = rand(1)*1E-4;%1E-5
+initial_1.Lxz = rand(1)*1E-4;
+initial_1.Lzy = rand(1)*1E-4;
 
 %%Controller Parameters
 %%%PID parameters

@@ -7,42 +7,16 @@ function J=myObjectiveFunction(k)
 % Modified by Bespi123 on 26/02/2024
 
 %%%%%%%%%%%%%%%%%%%     SECTION 1: Variables          %%%%%%%%%%%%%%%%%%%%%
-% Separate the variables into their appropriate names, according to the
-% problem at hand. These variables correspond to the elements of x, which
-% must be n different elements.
-z.gamma = k(1); z.h = k(2); 
-%%%%%%%%%%%%%%%%%%%     SECTION 2: Conditions         %%%%%%%%%%%%%%%%%%%%%
-% Operating conditions of the problem. If the problem has parameters or 
-% data that you need to add, place them in this section.
-%%%x-coil
-x.Kp  = 3639.2 ;                 
-x.Tp1 = 108.65 ;                
-x.Tp2 = 0.52435;               
-x.Tz  = 24.199 ; %call plant variables
-%%%y-coil
-y.Kp  = 6900.7;                 
-y.Tp1 = 4.5513;                 
-y.Tp2 = 4.3827;                 
-y.Tz  = 2.7486;
-%%%z-coil
-z.Kp  = 3137.9 ;                
-z.Tp1 = 46.134 ;                
-z.Tp2 = 0.35501;                
-z.Tz  = 166.08 ;
-
-%%%Controller
-z.init.k = 0;
-z.init.theta1 =  0;
-z.init.theta2 =  0.000;
-z.init.theta0 =  0.000;
-z.init.omega1 =  0.000;
-z.init.omega2 =  0;
-
-%%Reference tf
-ref.km  = 1.6211e-04;
-ref.bm  = 1;
-ref.am1 = 0.0232;
-ref.am2 = 1.6211e-04;
+parameters;
+x.PID.Kp=k(1);
+x.PID.Ki=k(2);
+x.PID.Kd=k(3);
+y.PID.Kp=k(4);
+y.PID.Ki=k(5);
+y.PID.Kd=k(6);
+z.PID.Kp=k(7);
+z.PID.Ki=k(8);
+z.PID.Kd=k(9);
 
 %%%%%%%%%%%%%%%%%%%     SECTION 3: Pre-Calculations   %%%%%%%%%%%%%%%%%%%%%
 % Pre-calculations
@@ -54,9 +28,7 @@ ref.am2 = 1.6211e-04;
 % simulation outputs
 % WARNING!!! The model name must be changed in the following line
 try
-   %salidas=sim('xcoilSintonization','SrcWorkspace','current');
-   %salidas=sim('ycoilSintonization','SrcWorkspace','current');
-   salidas=sim('test2_z.slx','SrcWorkspace','current');
+   salidas=sim('closeLoopv2.slx','SrcWorkspace','current');
    stable = 1;
 catch exception
    
@@ -64,8 +36,8 @@ catch exception
     stable = 0;
     disp('System No stable')
    else
-       stable = 0;
        disp('Otro error')
+       stable = 0;
    end
 end
 
@@ -77,7 +49,22 @@ t    = salidas.get('tout');
 
 % It is common to have the system error as out1, the controller output u as
 % out2, and the output y as out3
-u=yout(:,1); y=yout(:,2); e=yout(:,3);%Define error, control signal and output
+temp.e    = yout{1}.Values.Data;
+temp.u    = yout{2}.Values.Data;
+temp.y    = yout{5}.Values.Data;
+
+e    = zeros(size(temp.e, 3),3);
+u    = zeros(size(temp.u, 3),3);
+Y    = zeros(size(temp.y, 3),3);
+
+%Display each slice of the 3D array
+numSlices = size(temp.e, 3);
+for j = 1:numSlices
+    %fprintf('val(:,:, %d) =\n\n', j);
+    e(j,:) = temp.e(:, :, j);
+    u(j,:) = temp.u(:, :, j);
+    Y(j,:) = temp.y(:, :, j);
+end
 
 %%%%%%%%%%%%%%%%%%% SECTION 5: Calculate the Fitness  %%%%%%%%%%%%%%%%%%%%%%
 % The response of the process is now analyzed. If the input is not a step, 
@@ -86,45 +73,47 @@ u=yout(:,1); y=yout(:,2); e=yout(:,3);%Define error, control signal and output
 
 %-----Indice preestablecido------------
 %digamos que se desea que el tiempo de establecimiento sea un valor
-%especÃ­fico
+%específico
 %desired_setlement_time = 376;
 %desired_rising_time    = 80;
-desired_setlement_time = 0;
-desired_rising_time    = 0;
+%desired_setlement_time = 0;
+%desired_rising_time    = 0;
 
 % calculate rising time
-tr = calculateRissingTime(e, t, 50/100);
-d_tr = abs(desired_rising_time-tr);
+%tr = calculateRissingTime(e, t, 50/100);
+%d_tr = abs(desired_rising_time-tr);
 
 % Calculate settlement time
-ts = calculateSettlementTime(e, t, 5/100);
-d_ts = abs(desired_setlement_time-ts);
+%ts = calculateSettlementTime(e, t, 5/100);
+%d_ts = abs(desired_setlement_time-ts);
 
-%-----Ã­ndices de error integral --------
+%-----índices de error integral --------
 %itse=trapz(t,t.*e.^2);
 itse = trapz(t,e.^2);
 
-itsy = trapz(t,y.^2);
+itsy = trapz(t,Y.^2);
 
-entropy = calculate_entropy(y);
+entropy = calculate_entropy(Y);
 % % %-----
 %overshoot = max(y);
-[overshoot, ~] = calculateOvershoot(y);
+[overshoot, ~] = calculateOvershoot(abs(Y));
 
 uwork = trapz(t,u.^2);
 
-%%%-----ElecciÃ³n del Ã­ndice deseado como fitness-------
-%%% Se determina la salida del la funciÃ³n fitness
+%%%-----Elección del índice deseado como fitness-------
+%%% Se determina la salida del la función fitness
 %%%J=itse+overshoot+umax+uwork+timeWorking;
 %%%J=itse+setlement_time_error+overshoot+rising_time_error;
 %%%J=itse+setlement_time_error+rising_time_error;
-if isempty(tr) || isempty(ts)
-    J = 5E4;
+%if isempty(tr) || isempty(ts)
+%    J = 5E4;
+%else
+    %J = d_tr+d_ts+itse+uwork+itsy+entropy+overshoot*100; %%%High value of J
+    J = sum(itse+uwork+itsy+entropy+overshoot*100); %%%High value of J
+%end
 else
-    J = d_tr+d_ts+itse+uwork+itsy+entropy+overshoot*100; %%%High value of J
-end
-else
-    J = 5E4;
+    J = Inf;
+
 end
 
 end
