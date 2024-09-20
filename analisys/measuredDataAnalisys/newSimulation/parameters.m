@@ -50,25 +50,33 @@ initial_1.Lxy = rand(1)*1E-4;%1E-5
 initial_1.Lxz = rand(1)*1E-4;
 initial_1.Lzy = rand(1)*1E-4;
 
+
 %%Controller Parameters
 %%%PID parameters
-x.PID.Kp = 7.034383411703327e-04;
-x.PID.Ki = 0.001083608847320;
-x.PID.Kd = 3.096305095968147e-05;
+%x.PID.Kp = 7.034383411703327e-04;
+%x.PID.Ki = 0.001083608847320;
+%x.PID.Kd = 3.096305095968147e-05;
+x.PID.Kp = 1380648.9719;
+x.PID.Ki = 6783283495.8308;
+x.PID.Kd = 0;
 
 %%%y-coil
 %%%PID parameters
-y.PID.Kp = 0.001047044877412;
-y.PID.Ki = 8.904034390454403e-05;
+%y.PID.Kp = 0.001047044877412;
+%y.PID.Ki = 8.904034390454403e-05;
+%y.PID.Kd = 0;
+y.PID.Kp = 548580.3214;
+y.PID.Ki = 1697252969.9689;
 y.PID.Kd = 0;
 
 %%%z-coil
- % z.PID.Kp =0;
- % z.PID.Ki = 8.067154903969480e-06;
- % z.PID.Kd = 0;
-z.PID.Kp = 0;
-z.PID.Ki = 0.00008067154904;
+%z.PID.Kp = 0;
+%z.PID.Ki = 0.00008067154904;
+%z.PID.Kd = 0;
+z.PID.Kp = 641963.3974;
+z.PID.Ki = 7238744360.0891;
 z.PID.Kd = 0;
+
 %%%observer
 observer.l1 = 1-3;
 observer.l2 = 0.1;
