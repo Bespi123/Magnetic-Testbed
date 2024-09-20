@@ -23,7 +23,7 @@ L1 =[Lxx, (B_1/B_2)*Lxy, (B_1/B_3)*Lxz;
 
 L = [Lxx, Lxy, Lxz;
      Lxy, Lyy, Lzy;
-     Lxz, Lzy, Lzz];
+     Lxz, Lzy, Lz];
 %L = diag([initial_1.Lx,initial_1.Ly,initial_1.Lz]);
 R = diag([Rx,Ry,Rz]);
 B = diag([B_1,B_2,B_3]);
@@ -40,5 +40,5 @@ Dp = 0;
 %%% g(x) = L^-1Bx;
 X_dot = Ap*x+Bp*u;
 p_dot = -lambda*p-lambda*(lambda*X_dot+Ap*x+Bp*u);
-%d_est = p+lambda*X_dot;
+d_est = p+lambda*X_dot;
 end
