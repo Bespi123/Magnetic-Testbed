@@ -29,8 +29,8 @@ R = diag([Rx,Ry,Rz]);
 B = diag([B_1,B_2,B_3]);
 %%% Model matrix
 Ap = -inv(L1)*R ;
-Bp = B*inv(L); 
-Cp = [1,1,1];
+Bp = B*inv(L)*1E9; 
+Cp = eye(3);
 Dp = 0;
 
 %%%Define x as measured magnetic Field instead of current
@@ -38,7 +38,7 @@ Dp = 0;
 
 %%% f(x) = L^-1Rx;
 %%% g(x) = L^-1Bx;
-X_dot = Ap*x+Bp*u;
-p_dot = -lambda*p-lambda*(lambda*X_dot+Ap*x+Bp*u);
+%X_dot = Ap*x+Bp*u;
+p_dot = -lambda*p-lambda*(lambda*x+Ap*x+Bp*u);
 %d_est = p+lambda*X_dot;
 end
