@@ -3,14 +3,14 @@ no_var = 9;  %number of variables
 lb = zeros(1,9); % lower bound
 up = Inf(1,9); % high bound
 
-initial = [7.034383411703327e-04, 0.001083608847320, 3.096305095968147e-05,...
-           0.001047044877412, 8.904034390454403e-05, 0, 0, 0.00008067154904, 0];
+initial = [1380648.9719, 6783283495.8308, 0, 548580.3214,...
+           1697252969.9689, 0, 641963.3974, 7238744360.0891, 0];
 
 %GA OPTIONS
 %try
-ga_opt = optimoptions('ga','Display','off','MaxGenerations',10,'PopulationSize',20, ...
+ga_opt = optimoptions('ga','Display','off','MaxGenerations',10,'PopulationSize',10, ...
     'InitialPopulationMatrix',initial,'PlotFcn',@gaplotbestf,'MutationFcn', @mutationadaptfeasible);
-ga_opt.UseParallel = canUseGPU();
+%ga_opt.UseParallel = canUseGPU();
 %ga_opt = gaoptimset('Display','off','Generations',200,'PopulationSize',200, ...
 %    'InitialPopulation',initial,'PlotFcns',@gaplotbestf);
 obj_fun = @(k)myObjectiveFunction(k);
@@ -19,6 +19,12 @@ obj_fun = @(k)myObjectiveFunction(k);
 %%catch exception
 %    disp('Error');
 %end
-%opt_kp = k(1);
-%opt_ki = k(3);
-%opt_kd = k(2);
+x.PID.Kp = k(1);
+x.PID.Ki = k(2);
+x.PID.Kd = k(3);
+y.PID.Kp = k(4);
+y.PID.Ki = k(5);
+y.PID.Kd = k(6);
+z.PID.Kp = k(7);
+z.PID.Ki = k(8);
+z.PID.Kd = k(9);
