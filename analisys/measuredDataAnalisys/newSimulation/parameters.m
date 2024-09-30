@@ -43,12 +43,12 @@ initial_1.Lz  = IS501NMTB.Z.Lz;       %%0.00208911
 initial_1.Rz  = IS501NMTB.Z.R;        %%14.913
 initial_1.B_z = coeff_teor(IS501NMTB.Z.N,IS501NMTB.Z.a,IS501NMTB.Z.h); %%5.38582e-05
 %%%Mutual inductances
-% initial_1.Lxy = 0;%1E-5
-% initial_1.Lxz = 0;
-% initial_1.Lzy = 0;
-initial_1.Lxy = rand(1)*1E-5;%1E-5
-initial_1.Lxz = rand(1)*1E-5;
-initial_1.Lzy = rand(1)*1E-5;
+initial_1.Lxy = 0;%1E-5
+initial_1.Lxz = 0;
+initial_1.Lzy = 0;
+% initial_1.Lxy = rand(1)*1E-5;%1E-5
+% initial_1.Lxz = rand(1)*1E-5;
+% initial_1.Lzy = rand(1)*1E-5;
 
 
 %%Controller Parameters
@@ -86,17 +86,17 @@ observer.l2 = 1000;
 observer.l3 = 1000;
 
 %%gain Estimator
-estimator.gamma1=5E-12;
-estimator.gamma2=5E-12;
-estimator.gamma3=5E-12;
-% estimator.gamma1=5E-1;
-% estimator.gamma2=1E-1;
-% estimator.gamma3=1E-1;
+%estimator.gamma1=5E-12;
+%estimator.gamma2=5E-12;
+%estimator.gamma3=5E-12;
+ estimator.gamma1=5E0;
+ estimator.gamma2=5E0;
+ estimator.gamma3=5E0;
 
 % %%%gain Estimator
-%estimator1.gamma1=7.5E-4;
-%estimator1.gamma2=7.5E-4;
-%estimator1.gamma3=7.5E-4;
+estimator1.gamma1=1E-3;
+estimator1.gamma2=1E-3;
+estimator1.gamma3=1E-3;
  
 % estimator1.gamma1=eps;
  % estimator1.gamma2=eps;
@@ -139,45 +139,43 @@ sliding.n = [0.1,0.1,0.1]*1E-12;
 
 
 %%%Adaptation Law gains
-x.lambda = 10E5;
-x.n = 2E7;
-x.alpha = 20E5;
-x.beta = 50E5;
-x.epsilon = 5E-3;
+x.lambda = 5E-15;
+x.n = 1E-15;
+x.alpha = 3E-15;
+x.beta = 5E-15;
+x.epsilon = 1E-15;
 
 % % %%%Initial Conditions
 % % x.kd_init  = 0;
 % % x.ki_init = 6783283495.8308;
 % % x.kp_init = 1380648.9719;
 %%%Initial Conditions (nT)
-x.kd_init  = 0.00;
-%x.ki_init = x.PID.Ki;
-%x.kp_init = x.PID.Kp;
-x.ki_init = 0.000;
-x.kp_init = 0.000;
+x.kd_init = 0.00;
+x.ki_init = 0.00;
+x.kp_init = 0.00;
 
 %%%Adaptation Law gains
-y.lambda = 10;
-y.n = 10;
-y.alpha = 10;
-y.beta = 10;
-y.epsilon = 100;
+y.lambda = 5E-15;
+y.n = 1E-15;
+y.alpha = 3E-15;
+y.beta = 5E-15;
+y.epsilon = 1E-15;
 
 %%%Initial Conditions
 % % y.kd_init = 0;
 % % y.ki_init = 1697252969.9689;
 % % y.kp_init = 548580.3214;
 %%%Initial Conditions (nT)
-y.kd_init = 0;
+y.kd_init = 0.00;
 y.ki_init = 0.00;
 y.kp_init = 0.00;
 
 %%%Adaptation Law gains
-z.lambda = 10;
-z.n = 10;
-z.alpha = 10;
-z.beta = 10;
-z.epsilon = 0.01;
+z.lambda = 5E-15;
+z.n = 1E-15;
+z.alpha = 3E-15;
+z.beta = 5E-15;
+z.epsilon = 1E-15;
 
 %%%Initial Conditions
 % % z.kd_init = 0;
@@ -216,14 +214,15 @@ Dm = 0;
 sys_ss = ss(Am, Bm, Cm, Dm);
 sys_tf = tf(sys_ss);
 
-Q = 1*eye(3)*1E-10;
+%Q = 1*eye(3)*1E-10;
+Q = 1*eye(3)*1E-1;
 %-5
 %Q = 1*eye(3)*1E-9;
 %%%Solve the lyapunov equation
 P = lyap(eye(3),Q,[],Am');
 P = P';
 
-centralized.gamma_x = [1,1,1]*1E-12;
-centralized.gamma_r = [1,1,1]*1E-12;
-centralized.gamma_b = [0,0,0];
+centralized.gamma_x = [1,1,1]*1E1;
+centralized.gamma_r = [1,1,1]*1E1;
+centralized.gamma_b = [1,1,1]*1E3;
 centralized.P = P(:);
