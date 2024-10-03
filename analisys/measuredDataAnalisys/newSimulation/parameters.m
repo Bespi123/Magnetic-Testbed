@@ -89,9 +89,9 @@ observer.l3 = 1000;
 %estimator.gamma1=5E-12;
 %estimator.gamma2=5E-12;
 %estimator.gamma3=5E-12;
- estimator.gamma1=5E0;
- estimator.gamma2=5E0;
- estimator.gamma3=5E0;
+ estimator.gamma1=5E1;
+ estimator.gamma2=5E1;
+ estimator.gamma3=5E1;
 
 % %%%gain Estimator
 estimator1.gamma1=1E-3;
@@ -139,11 +139,11 @@ sliding.n = [0.1,0.1,0.1]*1E-12;
 
 
 %%%Adaptation Law gains
-x.lambda = 5E-15;
-x.n = 1E-15;
-x.alpha = 3E-15;
-x.beta = 5E-15;
-x.epsilon = 1E-15;
+x.lambda = 5E3;
+x.n = 1E3;
+x.alpha = 3E3;
+x.beta = 5E3;
+x.epsilon = 1E3;
 
 % % %%%Initial Conditions
 % % x.kd_init  = 0;
@@ -155,11 +155,11 @@ x.ki_init = 0.00;
 x.kp_init = 0.00;
 
 %%%Adaptation Law gains
-y.lambda = 5E-15;
-y.n = 1E-15;
-y.alpha = 3E-15;
-y.beta = 5E-15;
-y.epsilon = 1E-15;
+y.lambda = 5E3;
+y.n = 1E3;
+y.alpha = 3E3;
+y.beta = 5E3;
+y.epsilon = 1E3;
 
 %%%Initial Conditions
 % % y.kd_init = 0;
@@ -171,18 +171,18 @@ y.ki_init = 0.00;
 y.kp_init = 0.00;
 
 %%%Adaptation Law gains
-z.lambda = 5E-15;
-z.n = 1E-15;
-z.alpha = 3E-15;
-z.beta = 5E-15;
-z.epsilon = 1E-15;
+z.lambda = 5E3;
+z.n = 1E3;
+z.alpha = 3E3;
+z.beta = 5E3;
+z.epsilon = 1E3;
 
 %%%Initial Conditions
 % % z.kd_init = 0;
 % % z.ki_init = 7238744360.0891;
 % % z.kp_init = 641963.3974;
 %%%Initial Conditions (nT)
-z.kd_init = 0;
+z.kd_init = 0.00;
 z.ki_init = 0.00;
 z.kp_init = 0.00;
 
@@ -200,9 +200,9 @@ y.pid_v2.ni = 1;
 y.pid_v2.nd = 1;
 
 z.pid_v2.Yg = 0.1;
-z.pid_v2.np = 1;
-z.pid_v2.ni = 1;
-z.pid_v2.nd = 1;
+z.pid_v2.np = 1E-15;
+z.pid_v2.ni = 1E-15;
+z.pid_v2.nd = 1E-15;
 
 
 %%%Modelo de referencia
@@ -226,3 +226,8 @@ centralized.gamma_x = [1,1,1]*1E1;
 centralized.gamma_r = [1,1,1]*1E1;
 centralized.gamma_b = [1,1,1]*1E3;
 centralized.P = P(:);
+
+% centralized.gamma_x = [1,1,1]*1E-2;
+% centralized.gamma_r = [1,1,1]*1E-2;
+% centralized.gamma_b = [1,1,1]*1E-2;
+% centralized.P = P(:);
