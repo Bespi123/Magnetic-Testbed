@@ -188,7 +188,7 @@ z.epsilon = 1E-15;
 % % z.ki_init = 7238744360.0891;
 % % z.kp_init = 641963.3974;
 %%%Initial Conditions (nT)
-z.kd_init = 0;
+z.kd_init = 0.00;
 z.ki_init = 0.00;
 z.kp_init = 0.00;
 
@@ -206,9 +206,9 @@ y.pid_v2.ni = 1;
 y.pid_v2.nd = 1;
 
 z.pid_v2.Yg = 0.1;
-z.pid_v2.np = 1;
-z.pid_v2.ni = 1;
-z.pid_v2.nd = 1;
+z.pid_v2.np = 1E-15;
+z.pid_v2.ni = 1E-15;
+z.pid_v2.nd = 1E-15;
 
 
 %%%Modelo de referencia
@@ -232,3 +232,8 @@ centralized.gamma_x = [1,1,1]*1E1;
 centralized.gamma_r = [1,1,1]*1E1;
 centralized.gamma_b = [1,1,1]*1E3;
 centralized.P = P(:);
+
+% centralized.gamma_x = [1,1,1]*1E-2;
+% centralized.gamma_r = [1,1,1]*1E-2;
+% centralized.gamma_b = [1,1,1]*1E-2;
+% centralized.P = P(:);

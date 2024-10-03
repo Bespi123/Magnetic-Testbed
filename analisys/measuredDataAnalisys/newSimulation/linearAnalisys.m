@@ -69,6 +69,8 @@ T1_nT = feedback(C_pid_1_nT * G_mimo_2(1,1), 1);
 T2_nT = feedback(C_pid_2_nT * G_mimo_2(2,2), 1);
 T3_nT = feedback(C_pid_3_nT * G_mimo_2(3,3), 1);
 
+
+
 %% Analizar controlabilidad
 Co = ctrb(Ap,Bp);
 rank(Co)
