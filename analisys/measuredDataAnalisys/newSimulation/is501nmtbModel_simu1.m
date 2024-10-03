@@ -1,4 +1,4 @@
-function out = is501nmtbModel_simu(input)
+function out = is501nmtbModel_simu1(input)
     %Define inputs
     %u:      V (Vmean)
     %Lxx:    Torque constant (N*m/A)
@@ -15,24 +15,26 @@ function out = is501nmtbModel_simu(input)
     %B_3:   Biot-Savart law in z
     
     %%%Input reading
-    x = [input(1);input(2);input(3)];
-    u = [input(4);input(5);input(6)]; 
-    Lxx = input(7);
-    Rx  = input(8);
-    B_1 = input(9);
-    Lyy = input(10);
-    Ry  = input(11);
-    B_2 = input(12);
-    Lzz = input(13);
-    Rz  = input(14);
-    B_3 = input(15);
-    Lxy = input(16);
-    Lxz = input(17);
-    Lzy = input(18);
+    x   = [input(1);input(2);input(3)];
+    u   = [input(4);input(5);input(6)]; 
+    Td  = [input(7);input(8);input(9)];
+    Lxx = input(10);
+    Rx  = input(11);
+    B_1 = input(12);
+    Lyy = input(13);
+    Ry  = input(14);
+    B_2 = input(15);
+    Lzz = input(16);
+    Rz  = input(17);
+    B_3 = input(18);
+    Lxy = input(19);
+    Lxz = input(20);
+    Lzy = input(21);
+
     %%%Parameter reading
-    L1 =[Lxx, (B_1/B_2)*Lxy, (B_1/B_3)*Lxz;
-     (B_2/B_1)*Lxy, Lyy, (B_2/B_3)*Lzy;
-     (B_3/B_1)*Lxz, (B_3/B_2)*Lzy, Lzz];
+    %L1 =[Lxx, (B_1/B_2)*Lxy, (B_1/B_3)*Lxz;
+    %     (B_2/B_1)*Lxy, Lyy, (B_2/B_3)*Lzy;
+    %     (B_3/B_1)*Lxz, (B_3/B_2)*Lzy, Lzz];
     L = [Lxx,Lxy,Lxz;
          Lxy,Lyy,Lzy;
          Lxz,Lzy,Lzz];
@@ -43,20 +45,15 @@ function out = is501nmtbModel_simu(input)
     u = [u(1);u(2);u(3)];
     
     % %%% State variables
-    % i  = x; 
-    % i_dot=L\(u-R*i);
-    % 
-    % %x_dot vector
-    % dx=i_dot;
-    % 
-    % %Output equation (Magnetic Field)
-    % y = B * x;
-    % 
+     i  = x; 
+     i_dot=L\(u-R*i);
+     
+     %x_dot vector
+     dx=i_dot;
+     
+     %Output equation (Magnetic Field)
+     y = B * x + Td;
+
     % %%%Out
-    % out = [dx;y];
-    %%% Model matrix
-    Ap = -inv(L1)*R ;
-    Bp = B*inv(L); 
-    Cp = eye(3);
-    Dp = 0;
+     out = [dx;y];
 end

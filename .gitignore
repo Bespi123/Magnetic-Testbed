@@ -1,0 +1,50 @@
+# Ignorar archivos de configuración de MATLAB
+*.asv
+*.autosave
+*.slx
+*.mdl
+*.mex*
+*.p
+*.mexa64
+
+# Ignorar archivos de resultados y temporales
+*.mat
+*.fig
+*.log
+*.lst
+*.out
+*.bak
+*.tmp
+*.swp
+
+# Ignorar archivos de simulación
+*.sim
+*.slx
+*.mdl
+
+# Ignorar carpetas de MATLAB
+*.hg
+*.sg
+*.slxc
+*.slxc
+cache/
+temp/
+
+# Ignorar archivos de paquetes de MATLAB
+*.mlappinstall
+
+# Ignorar la carpeta de preferencias de MATLAB
+MATLAB/
+
+# Ignorar archivos de documentación
+*.docx
+*.pdf
+
+# Ignorar archivos de usuario y de soporte
+*.prj
+*.user
+*.slreportgen
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
