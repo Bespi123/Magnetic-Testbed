@@ -1,5 +1,7 @@
 # MATLAB specific files
 *.asv
+*.autosave
+*.slx
 *.fig
 #*.mlx
 *.mat
@@ -8,19 +10,39 @@
 *.mltbx
 *.slxc
 *.mdl
+*.mex*
+*.p
+*.mexa64
 *.xvc
 
+# Ignorar archivos de resultados y temporales
+*.mat
+*.fig
+*.log
+*.lst
+*.out
 # MATLAB backup files
 *~ 
 *.bak
+*.tmp
+*.swp
 
+# Ignorar archivos de simulación
+*.sim
 # Simulink autosave files
 slprj/
 sfunctbl/
 *_autosave.slx
+*.mdl
 *.autosave
 
 # MATLAB code generation files
+*.hg
+*.sg
+*.slxc
+*.slxc
+cache/
+temp/
 codegen/
 *.mexw32
 *.mexw64
@@ -28,10 +50,26 @@ codegen/
 *.mexmaci64
 
 # MATLAB project files
+*.mlappinstall
 .SimulinkProject/
 .slxproj
 .prj
 
+# Ignorar la carpeta de preferencias de MATLAB
+MATLAB/
+
+# Ignorar archivos de documentación
+*.docx
+*.pdf
+
+# Ignorar archivos de usuario y de soporte
+*.prj
+*.user
+*.slreportgen
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
 # Ignore personal settings and preferences files
 *.prm
 *.tmr
