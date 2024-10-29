@@ -83,25 +83,46 @@ function [B,B1,B2] = magneticFielsSquareCoil(P, N, I, spire1, spire2)
     B = B1+B2;
 end
 
-function [spire1,spire2] = squareSpires(A, h, L, numSeg)
-    %%% Define limit for Spire 1 considering that the spire is in y-z plane
-    spire1.side1 = [h/2*ones(1,numSeg); linspace(L/2,-L/2,numSeg); L/2*ones(1,numSeg)       ];  %minusYspire1 
-    spire1.side2 = [h/2*ones(1,numSeg); -L/2*ones(1,numSeg)      ; linspace(L/2,-L/2,numSeg)];  %minusZspire1
-    spire1.side3 = [h/2*ones(1,numSeg); linspace(-L/2,L/2,numSeg); -L/2*ones(1,numSeg)      ];  %plusYspire1
-    spire1.side4 = [h/2*ones(1,numSeg); L/2*ones(1,numSeg)       ; linspace(-L/2,L/2,numSeg)];  %plusZspire1
+function [spire1, spire2] = squareSpires(A, h, L, numSeg)
+    % squareSpires - Generates the coordinates for two square spires (coils) in the Y-Z plane.
+    %
+    % Syntax: [spire1, spire2] = squareSpires(A, h, L, numSeg)
+    %
+    % Inputs:
+    %   A      - Rotation matrix to orient the spires.
+    %   h      - Height of the coils.
+    %   L      - Length of the coils.
+    %   numSeg  - Number of segments for each side of the coils.
+    %
+    % Outputs:
+    %   spire1  - Struct containing coordinates for the first coil.
+    %   spire2  - Struct containing coordinates for the second coil.
+
+    %%% Define limits for Spire 1 considering that the spire is in the Y-Z plane
+    % Create the coordinates for each side of the first coil (spire1)
+    spire1.side1 = [h/2 * ones(1, numSeg); linspace(L/2, -L/2, numSeg); L/2 * ones(1, numSeg)];  % Side facing -Y direction (bottom)
+    spire1.side2 = [h/2 * ones(1, numSeg); -L/2 * ones(1, numSeg); linspace(L/2, -L/2, numSeg)];  % Side facing -Z direction (left)
+    spire1.side3 = [h/2 * ones(1, numSeg); linspace(-L/2, L/2, numSeg); -L/2 * ones(1, numSeg)];  % Side facing +Y direction (top)
+    spire1.side4 = [h/2 * ones(1, numSeg); L/2 * ones(1, numSeg); linspace(-L/2, L/2, numSeg)];   % Side facing +Z direction (right)
     
-    %%% Define limit for Spire 2 considering that the spire is in y-z plane
-    spire2.side1 = spire1.side1 - [h,0,0]'; %minusYspire2 
-    spire2.side2 = spire1.side2 - [h,0,0]'; %minusZspire2
-    spire2.side3 = spire1.side3 - [h,0,0]'; %plusYspire2
-    spire2.side4 = spire1.side4 - [h,0,0]'; %plusZspire2
+    %%% Define limits for Spire 2 considering that the spire is in the Y-Z plane
+    % Create the coordinates for each side of the second coil (spire2)
+    spire2.side1 = spire1.side1 - [h, 0, 0]';  % Adjust position for side facing -Y direction of coil 2
+    spire2.side2 = spire1.side2 - [h, 0, 0]';  % Adjust position for side facing -Z direction of coil 2
+    spire2.side3 = spire1.side3 - [h, 0, 0]';  % Adjust position for side facing +Y direction of coil 2
+    spire2.side4 = spire1.side4 - [h, 0, 0]';  % Adjust position for side facing +Z direction of coil 2
     
-    %%%Rotate helmholtz coils (spire1)
-    spire1.side1 = A*spire1.side1; spire1.side2 = A*spire1.side2;
-    spire1.side3 = A*spire1.side3; spire1.side4 = A*spire1.side4;
-    %%%Rotate helmholtz coils (spire2)
-    spire2.side1 = A*spire2.side1; spire2.side2 = A*spire2.side2;
-    spire2.side3 = A*spire2.side3; spire2.side4 = A*spire2.side4;
+    %%% Rotate the Helmholtz coils (spire1)
+    spire1.side1 = A * spire1.side1;  % Apply rotation matrix to the first side of coil 1
+    spire1.side2 = A * spire1.side2;  % Apply rotation matrix to the second side of coil 1
+    spire1.side3 = A * spire1.side3;  % Apply rotation matrix to the third side of coil 1
+    spire1.side4 = A * spire1.side4;  % Apply rotation matrix to the fourth side of coil 1
+    
+    %%% Rotate the Helmholtz coils (spire2)
+    spire2.side1 = A * spire2.side1;  % Apply rotation matrix to the first side of coil 2
+    spire2.side2 = A * spire2.side2;  % Apply rotation matrix to the second side of coil 2
+    spire2.side3 = A * spire2.side3;  % Apply rotation matrix to the third side of coil 2
+    spire2.side4 = A * spire2.side4;  % Apply rotation matrix to the fourth side of coil 2
 end
 
 function coil = coilSimulation1d(range, A1, IS501NMTB, I)
