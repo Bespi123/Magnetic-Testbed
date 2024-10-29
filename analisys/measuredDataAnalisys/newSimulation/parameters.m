@@ -89,9 +89,15 @@ observer.l3 = 1000;
 %estimator.gamma1=5E-12;
 %estimator.gamma2=5E-12;
 %estimator.gamma3=5E-12;
- estimator.gamma1=5E1;
- estimator.gamma2=5E1;
- estimator.gamma3=5E1;
+ % estimator.gamma1=5E0;
+ % estimator.gamma2=5E0;
+ % estimator.gamma3=5E0;
+%estimator.gamma1=1E1;
+%estimator.gamma2=1E1;
+%estimator.gamma3=1E1;
+estimator.gamma1=5E2;
+estimator.gamma2=5E2;
+estimator.gamma3=5E2;
 
 % %%%gain Estimator
 estimator1.gamma1=1E-3;
@@ -139,11 +145,11 @@ sliding.n = [0.1,0.1,0.1]*1E-12;
 
 
 %%%Adaptation Law gains
-x.lambda = 5E3;
-x.n = 1E3;
-x.alpha = 3E3;
-x.beta = 5E3;
-x.epsilon = 1E3;
+x.lambda = 5E-15;
+x.n = 1E-15;
+x.alpha = 3E-15;
+x.beta = 5E-15;
+x.epsilon = 1E-15;
 
 % % %%%Initial Conditions
 % % x.kd_init  = 0;
@@ -155,11 +161,11 @@ x.ki_init = 0.00;
 x.kp_init = 0.00;
 
 %%%Adaptation Law gains
-y.lambda = 5E3;
-y.n = 1E3;
-y.alpha = 3E3;
-y.beta = 5E3;
-y.epsilon = 1E3;
+y.lambda = 5E-15;
+y.n = 1E-15;
+y.alpha = 3E-15;
+y.beta = 5E-15;
+y.epsilon = 1E-15;
 
 %%%Initial Conditions
 % % y.kd_init = 0;
@@ -171,11 +177,11 @@ y.ki_init = 0.00;
 y.kp_init = 0.00;
 
 %%%Adaptation Law gains
-z.lambda = 5E3;
-z.n = 1E3;
-z.alpha = 3E3;
-z.beta = 5E3;
-z.epsilon = 1E3;
+z.lambda = 5E-15;
+z.n = 1E-15;
+z.alpha = 3E-15;
+z.beta = 5E-15;
+z.epsilon = 1E-15;
 
 %%%Initial Conditions
 % % z.kd_init = 0;
