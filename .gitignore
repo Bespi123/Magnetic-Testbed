@@ -4,7 +4,7 @@
 #*.slx
 *.fig
 #*.mlx
-*.mat
+#*.mat
 *.mex*
 *.mlappinstall
 *.mltbx
