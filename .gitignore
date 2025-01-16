@@ -16,7 +16,7 @@
 *.xvc
 
 # Ignorar archivos de resultados y temporales
-*.mat
+#*.mat
 *.fig
 *.log
 *.lst
