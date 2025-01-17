@@ -55,11 +55,16 @@ git clone https://github.com/Bespi123/Magnetic-Testbed.git
 ## Usage
 
 ### Running Simulations
-
-1. Open MATLAB and navigate to the project directory.
-2. Open the Simulink model `adaptivev2.slx`.
-3. Configure the simulation parameters (e.g., initial conditions, control algorithms).
-4. Run the simulation to test the detumbling or nadir-pointing algorithm.
+#### IS501NMTB EMF simulation
+1. Open MATLAB and navigate to the project directory inside `IS501NMTB simulation` folder.
+2. To evaluate the 3D magnetic field of the test bed opn `helmholtzSimulation/is501nmtb_simulation.mlx`.
+3. To evaluate real data measured in the laboratory open `measuredDataAnalisys/analisysData.mlx` ensuring that folder `data` is include in the path.
+#### IS501NMTB close loop simulation
+1. Open MATLAB and navigate to the project directory inside `IS501NMTB_closeLoop` folder.
+2. Run the simulation parameters `sim_parameters.m` file
+7. Run the simulations which are organized inside.
+### Playground folder
+The playground folder contains auxiliar code used for sensor calibration, data recording and experiments with no relevance to the paper.
 
 ### Visualizing Results
 
