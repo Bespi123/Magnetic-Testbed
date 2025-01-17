@@ -13,7 +13,7 @@ function J = myObjectiveFunction(k)
 
 %%%%%%%%%%%%%%%%%%%     SECTION 1: Variables          %%%%%%%%%%%%%%%%%%%%%
 % Set controller parameters from input vector k
-parameters; % Load required parameters (ensure this file exists and is correctly configured)
+sim_parameters; % Load required parameters (ensure this file exists and is correctly configured)
 
 x.PID.Kp = k(1);
 x.PID.Ki = k(2);
