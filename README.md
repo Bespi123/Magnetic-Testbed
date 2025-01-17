@@ -39,17 +39,15 @@ The IS501NMTB testbed consists of:
 
 Ensure the following software and hardware are available:
 
-- MATLAB (R2021b or newer)
+- MATLAB (R2024b or newer)
 - Simulink
-- IGRF-13 Model for Earth's magnetic field simulation
-
+- Aerospace toolbox
 ### Installation
 
 Clone the repository:
 
 ```bash
-git clone https://github.com/username/IS501NMTB.git
-cd IS501NMTB
+git clone https://github.com/Bespi123/Magnetic-Testbed.git
 ```
 
 ---
@@ -107,4 +105,4 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 ## Acknowledgments
 
-Special thanks to the GNSS and aerospace dynamics communities for inspiration and support in developing this testbed.
+Special thanks to Beihang University for the support of this project.
