@@ -50,7 +50,7 @@ B = diag([B_1, B_2, B_3]);                       % Biot-Savart matrix
 %% System Dynamics
 % Define the state-space matrices
 Ap = -inv(L1) * R;                               % State matrix (dynamics)
-Bp = B * inv(L) * 1E9;                           % Input matrix (scaled to nT)
+Bp = B/L * 1E9;                           % Input matrix (scaled to nT)
 
 %% State Update
 % Calculate the rate of change of the state variables
