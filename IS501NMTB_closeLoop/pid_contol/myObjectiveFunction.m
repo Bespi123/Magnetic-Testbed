@@ -74,7 +74,7 @@ if stable == 1
     entropy = calculate_entropy(Y); % Shannon entropy of the output
 
     % Overshoot calculation
-    [overshoot, ~] = calculateOvershoot(abs(Y));
+    [overshoot, ~] = calculateOvershoot(abs(Y), [0, 0, 0]);
 
     % Controller energy consumption
     uwork = trapz(t, u.^2);
@@ -89,12 +89,25 @@ end
 end
 
 function entropy = calculate_entropy(signal)
-% Calculate the Shannon entropy of a signal.
-% Input: signal (1D array)
-% Output: entropy
+% Calculate the Shannon entropy for each column of a signal matrix.
+% Input: signal (N x 3 matrix), where each column is a signal.
+% Output: entropy (1 x 3 array), where each element is the entropy of a column.
 
-    unique_values = unique(signal);
-    probabilities = histcounts(signal, unique_values) / numel(signal);
-    probabilities(probabilities == 0) = []; % Avoid log(0)
-    entropy = -sum(probabilities .* log2(probabilities));
+    % Preallocate entropy array
+    [~, numSignals] = size(signal);
+    entropy = zeros(1, numSignals);
+
+    % Calculate entropy for each column
+    for col = 1:numSignals
+        % Extract the column
+        colSignal = signal(:, col);
+        
+        % Calculate unique values and probabilities
+        unique_values = unique(colSignal);
+        probabilities = histcounts(colSignal, unique_values) / numel(colSignal);
+        probabilities(probabilities == 0) = []; % Avoid log(0)
+        
+        % Compute Shannon entropy
+        entropy(col) = -sum(probabilities .* log2(probabilities));
+    end
 end
