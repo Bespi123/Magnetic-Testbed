@@ -1,17 +1,17 @@
 function [overshoot, to] = calculateOvershoot(y, target)
-    % calculateOvershoot calculates the overshoot and the time of occurrence.
+    % Calculate overshoot and time of occurrence for multiple signals (vectorized).
     %
     % Inputs:
-    %   y      - Response array of the system.
-    %   target - Target value of the response (e.g., steady-state value).
+    %   y      - Response matrix (N x M), where each column is a signal.
+    %   target - 1 x M array of target values for each signal.
     %
     % Outputs:
-    %   overshoot - Maximum overshoot as a percentage of the target value.
-    %   to        - Index of the time of maximum overshoot.
-
-    % Find the maximum response and its index
-    [maxValue, to] = max(y);
+    %   overshoot - 1 x M array of overshoot percentages for each signal.
+    %   to        - 1 x M array of indices of the maximum overshoot for each signal.
     
-    % Calculate overshoot as a percentage of the target value
-    overshoot = ((maxValue - target) / target) * 100;
+    % Find maximum values and their indices for each column
+    [maxValues, to] = max(y, [], 1); % Max along rows for each column
+    
+    % Calculate overshoot as a percentage of the target
+    overshoot = ((maxValues - target) ./ target) * 100;
 end
