@@ -12,6 +12,20 @@ function [overshoot, to] = calculateOvershoot(y, target)
     % Find maximum values and their indices for each column
     [maxValues, to] = max(y, [], 1); % Max along rows for each column
     
-    % Calculate overshoot as a percentage of the target
-    overshoot = ((maxValues - target) ./ target) * 100;
+    % Initialize overshoot
+    overshoot = zeros(1, size(y, 2));
+    
+    % Handle cases where target is zero
+    zeroTarget = (target == 0);
+    if any(zeroTarget)
+        % For zero target, overshoot is just the maximum value as a percentage
+        overshoot(zeroTarget) = maxValues(zeroTarget) * 100;
+    end
+    
+    % Handle non-zero targets
+    nonZeroTarget = ~zeroTarget;
+    if any(nonZeroTarget)
+        overshoot(nonZeroTarget) = ((maxValues(nonZeroTarget) - target(nonZeroTarget)) ./ target(nonZeroTarget)) * 100;
+    end
 end
+
